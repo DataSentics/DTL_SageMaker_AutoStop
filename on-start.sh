@@ -30,17 +30,8 @@ echo "Starting the SageMaker autostop script in cron"
 # "nohup" to run this as a background process in that case.
 
 sudo -u ec2-user -i <<'EOF'
-# PARAMETERS
-#PACKAGE=$(cat /home/ec2-user/SageMaker/requirements.txt)
-# Note that "base" is special environment name, include it there as well.
-for env in base /home/ec2-user/anaconda3/envs/*python3*; do
-    source /home/ec2-user/anaconda3/bin/activate $(basename "$env")
-    if [ $env = 'JupyterSystemEnv' ]; then
-        continue
-    fi
-    
-    pip install --upgrade -r /home/ec2-user/SageMaker/requirements.txt
-    
-    source /home/ec2-user/anaconda3/bin/deactivate
-done
+source /home/ec2-user/anaconda3/bin/activate $(basename "python3")
+pip install --upgrade -r /home/ec2-user/SageMaker/requirements.txt
+
+source /home/ec2-user/anaconda3/bin/deactivate
 EOF

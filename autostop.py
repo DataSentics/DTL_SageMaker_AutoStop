@@ -115,10 +115,10 @@ else:
 
 if idle:
     print('Deleting idle devendpoint')
-    glue_client = boto3.client('glue')
+    glue_client = boto3.client('glue', region_name='eu-central-1')
     glue_client.delete_dev_endpoint(EndpointName=get_devendpoint_name())
     print('Closing idle notebook')
-    client = boto3.client('sagemaker')
+    client = boto3.client('sagemaker', region_name='eu-central-1')
     client.stop_notebook_instance(NotebookInstanceName=get_notebook_name())
     
 else:

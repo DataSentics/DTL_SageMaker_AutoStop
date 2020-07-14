@@ -122,7 +122,7 @@ if idle:
     except Exception as ex:
         print(str(ex))
     print('Closing idle notebook')
-    client = boto3.client('sagemaker')
+    client = boto3.client('sagemaker', region_name='eu-central-1')
     client.stop_notebook_instance(NotebookInstanceName=get_notebook_name())
     
 else:

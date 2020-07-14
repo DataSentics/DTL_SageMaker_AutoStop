@@ -14,7 +14,7 @@ set -e
 #
 
 # PARAMETERS
-IDLE_TIME=3600
+IDLE_TIME=2*3600
 
 echo "Fetching the autostop script"
 wget https://raw.githubusercontent.com/DataSentics/DTL_SageMaker_AutoStop/master/autostop.py

@@ -75,6 +75,7 @@ def get_notebook_name():
     log_path = '/opt/ml/metadata/resource-metadata.json'
     with open(log_path, 'r') as logs:
         _logs = json.load(logs)
+    print _logs['ResouceName']
     return _logs['ResourceName']
 
 def get_devendpoint_name():
@@ -116,7 +117,10 @@ else:
 if idle:
     print('Deleting idle devendpoint')
     glue_client = boto3.client('glue')
-    glue_client.delete_dev_endpoint(EndpointName=get_devendpoint_name())
+    try:
+        glue_client.delete_dev_endpoint(EndpointName=get_devendpoint_name())
+    except Exception as ex:
+        print(str(ex))
     print('Closing idle notebook')
     client = boto3.client('sagemaker')
     client.stop_notebook_instance(NotebookInstanceName=get_notebook_name())
